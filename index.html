@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>File API Demo</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <p>Joseph Pranay Martin</p>
+            <h1>File API Demo</h1>
+            <p>Different strategies to leverage the File API within HTML and Javascript.</p>
+        </div>
+        <div class="input-container">
+            <h2>Using input tags</h2>
+
+            <p>The standard file-input element: </p>
+            <input type="file">
+            <code>
+                &lt;input type="file"&gt;
+            </code><br>
+
+            <p>A styled surrogate button with clicked input element:</p>
+            <input type="file" style="display: none" id="hidden-file-input-1">
+            <button class="surrogate" onclick="document.getElementById('hidden-file-input-1').click()">Select Files</button>
+            <code>
+                &lt;input <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;type = "file" <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;style = "display: none" <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;id = "hidden-file-input"&gt;<br><br>
+                &lt;button<br> 
+                &nbsp;&nbsp;&nbsp;&nbsp;onclick =<br> 
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"document.getElementById(<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'hidden-file-input'<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;).click();"<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&gt;Select Files&lt;/button&gt;
+            </code><br>
+
+            <p>The input element's "change" event is triggered when a file has been selected from the dialog. Within a callback to the event handler, the files can be accessed via the input element's .files property.</p>
+            <code>
+                var selector = document.getElementById("selector");<br>
+                selector.addEventListener("change", handleFiles, false);<br>
+                <br>
+                function handleFiles() {<br>
+                &nbsp;&nbsp;var file = this.files[0];<br>
+                &nbsp;&nbsp;var img = new Image;<br>
+                &nbsp;&nbsp;img.src = URL.createObjectURL(file);<br>
+                }<br>
+            </code>
+
+            <p>The button accesses the input's file and loads it into the canvas element.</p>
+            <input type="file" style="display: none" id="hidden-file-input-2">
+            <button class="surrogate" onclick="document.getElementById('hidden-file-input-2').click()">Upload Image</button>
+            <canvas id="canvas-1" width="384" height="216"></canvas>
+            <p></p>
+        </div>
+        <div class="dnd-container">
+            <h2>Using Drag and Drop</h2>
+
+            <p>Any element on the page can be used as a drag and drop target when the "drop" event is handled. Two other events, "dragEnter" and "dragOver", are also triggered but these can be neutralized.</p>
+            <code>
+                var dropbox = document.getElementById("canvas-2");<br>
+                dropbox.addEventListener("dragenter", dragenter, false);<br>
+                dropbox.addEventListener("dragover", dragover, false);<br>
+                dropbox.addEventListener("drop", drop, false);<br>
+                function dragenter(e) { e.stopPropagation(); e.preventDefault(); this.}<br>
+                function dragover(e) { e.stopPropagation(); e.preventDefault();}<br>
+                <br>
+                function drop(e) {<br>
+                &nbsp;&nbsp;e.stopPropagation();<br>
+                &nbsp;&nbsp;e.preventDefault();<br>
+                <br>
+                &nbsp;&nbsp;var dt = e.dataTransfer;<br>
+                &nbsp;&nbsp;var file = dt.files[0];<br>
+                &nbsp;&nbsp;//...<br>
+                }
+            </code>
+            <p>Demo:</p>
+            <canvas id="canvas-2" width="678" height="382"></canvas>
+
+            <p>To upload the files to the server, an AJAX POST request will work. A new FormData object must be created and then each file can be appended to it. The processData and contentType headers must be set to false to stop jQuery or the browser from trying to edit the files before they are sent.</p>
+            <p></p>
+        </div>
+
+
+        <script>
+            var selector = document.getElementById("hidden-file-input-2");
+            selector.addEventListener("change", handleFiles, false);
+
+            function handleFiles() {
+                var file = this.files[0];
+                var ctx = document.getElementById('canvas-1').getContext('2d');
+                var img = new Image;
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0);
+                    URL.revokeObjectURL(img.src);
+                };
+                img.src = URL.createObjectURL(file);
+            }
+
+            var dropbox = document.getElementById("canvas-2");
+            dropbox.addEventListener("dragenter", dragenter, false);
+            dropbox.addEventListener("dragover", dragover, false);
+            dropbox.addEventListener("drop", drop, false);
+            function dragenter(e) { e.stopPropagation(); e.preventDefault(); this.}
+            function dragover(e) { e.stopPropagation(); e.preventDefault();}
+
+            function drop(e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                var dt = e.dataTransfer;
+                var file = dt.files[0];
+
+                var ctx = document.getElementById('canvas-2').getContext('2d');
+                var img = new Image;
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0);
+                    URL.revokeObjectURL(img.src);
+                };
+                img.src = URL.createObjectURL(file);
+            }
+        </script>
+    </div>
+</body>
+</html>

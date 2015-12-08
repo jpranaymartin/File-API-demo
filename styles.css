@@ -1,0 +1,140 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/*==================================================*/
+
+html, body{
+    height: 100%;
+    width: 100%;
+    font-family: "Lato", sans-serif;
+    color: #737373;
+    font-size: 1.125rem; 
+}
+
+h1,h2,h3,h4,h5,h6{
+    font-weight: bold;
+}
+
+h1{
+    font-size: 3rem;
+}
+
+h2:first-child{
+    font-size: 2rem;
+    padding: 3rem 0 0 0;
+}
+
+p{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    clear: right; 
+    line-height: 1.64rem;  
+}
+
+.input-container p:last-child, .dnd-container p:last-child{
+    padding-bottom: 0rem;
+    clear: right; 
+    line-height: 0rem;  
+}
+
+code, pre{
+    font-size: 1rem;
+    font-family: monospace;
+    line-height: 1.25rem;
+    background-color: #efefef;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    float: right;
+}
+
+.container{
+    width: 100%;
+    max-width: 768px;
+    margin: 0 auto;
+    box-shadow: 0 0 16px 0 rgba(0,0,0,0.16);
+}
+
+.container>div{
+    padding: 0 2.5rem;
+}
+
+.header{
+    background-color: #4688f1;
+    color: white;
+}
+
+.input-container, .dnd-container{
+    background-color: #fafafa;
+}
+
+button.surrogate {
+  border-radius: 32px;
+  border: 0px solid black;
+  color: white;
+  font-size: 1.125rem;
+  background: #4688f1;
+  padding: 0.5rem 1.125rem;
+  text-decoration: none;
+}
+
+button.surrogate:hover {
+  background: #609af0;
+  text-decoration: none;
+}
+
+canvas{
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: inset 0 0 16px 0 rgba(0,0,0,0.16);
+}
+
+#canvas-1{
+    float: right;
+}
+
