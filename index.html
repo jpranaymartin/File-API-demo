@@ -13,7 +13,12 @@
             <p>Different strategies to leverage the File API within HTML and Javascript.</p>
         </div>
         <div class="input-container">
+
+            <!-- Ignore the <code> blocks below -->
+
             <h2>Using input tags</h2>
+
+            <!-- Standard Input -->
 
             <p>The standard file-input element: </p>
             <input type="file">
@@ -49,12 +54,15 @@
                 }<br>
             </code>
 
+            <!-- Styled Input -->
+
             <p>The button accesses the input's file and loads it into the canvas element.</p>
             <input type="file" style="display: none" id="hidden-file-input-2">
             <button class="surrogate" onclick="document.getElementById('hidden-file-input-2').click()">Upload Image</button>
             <canvas id="canvas-1" width="384" height="216"></canvas>
             <p></p>
         </div>
+
         <div class="dnd-container">
             <h2>Using Drag and Drop</h2>
 
@@ -76,6 +84,9 @@
                 &nbsp;&nbsp;//...<br>
                 }
             </code>
+
+            <!-- Simple element with drag-and-drop events. See js below. -->
+
             <p>Demo:</p>
             <canvas id="canvas-2" width="678" height="382"></canvas>
 
@@ -85,9 +96,19 @@
 
 
         <script>
+            /**
+             * Add the event listener to the input element that will receive the files
+             */
             var selector = document.getElementById("hidden-file-input-2");
             selector.addEventListener("change", handleFiles, false);
 
+            /**
+             * A separate function grabs the file from the input that calls it.
+             * Here, a canvas element is filled with the ObjectURL of the file.
+             * 
+             * Find out more about Object URLs here: 
+             * https://developer.mozilla.org/en-US/docs/Web/API/URL/createObjectURL
+             */
             function handleFiles() {
                 var file = this.files[0];
                 var ctx = document.getElementById('canvas-1').getContext('2d');
@@ -99,6 +120,16 @@
                 img.src = URL.createObjectURL(file);
             }
 
+            /**
+             * Drag and Drop
+             * 
+             * Almost any standard element will trigger the three drag-drop related events;
+             * "dragenter" and "dragover" don't need to be used except for styling/animation
+             * but they must have their propagation stopped.
+             *
+             * The "drop" event has a dataTransfer property which contains the files.
+             * Once the file is retrieved, the canvas is loaded. 
+             */
             var dropbox = document.getElementById("canvas-2");
             dropbox.addEventListener("dragenter", dragenter, false);
             dropbox.addEventListener("dragover", dragover, false);
